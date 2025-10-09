@@ -1,6 +1,10 @@
 package com.xtmd.emailvalidator.result.reason;
 
-public class DomainHyphened implements Reason {
+public class DomainHyphened extends DetailedReason {
+
+    public DomainHyphened(String detailedReason) {
+        super(detailedReason);
+    }
 
     @Override
     public int code() {

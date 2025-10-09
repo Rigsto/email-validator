@@ -1,18 +1,19 @@
 package com.xtmd.emailvalidator.parser;
 
 import com.xtmd.emailvalidator.EmailLexer;
+import com.xtmd.emailvalidator.constant.LexerConstant;
+import com.xtmd.emailvalidator.lexer.Token;
 import com.xtmd.emailvalidator.result.InvalidEmail;
 import com.xtmd.emailvalidator.result.Result;
 import com.xtmd.emailvalidator.result.ValidEmail;
 import com.xtmd.emailvalidator.result.reason.ConsecutiveDot;
 import com.xtmd.emailvalidator.warning.Warning;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 abstract class PartParser {
-    protected Set<Warning> warnings = new HashSet<>();
+    protected List<Warning> warnings = new ArrayList<>();
     protected EmailLexer lexer;
 
     public PartParser(EmailLexer lexer) {
@@ -21,9 +22,8 @@ abstract class PartParser {
 
     abstract public Result parse();
 
-    @SuppressWarnings("Since15")
     public List<Warning> getWarnings() {
-        return this.warnings.stream().toList();
+        return this.warnings;
     }
 
     protected Result parseFWS() {
@@ -35,16 +35,17 @@ abstract class PartParser {
     }
 
     protected Result checkConsecutiveDots() {
-        if (this.lexer.getCurrent().equals(Tokens.DOT) && this.lexer.isNextToken(Tokens.DOT)) {
-            return new InvalidEmail(new ConsecutiveDot(), this.lexer.getCurrent().getText());
+        if (this.lexer.current.isA(LexerConstant.S_DOT) && this.lexer.isNextToken(LexerConstant.S_DOT)) {
+            return new InvalidEmail(new ConsecutiveDot(), this.lexer.current.value);
         }
 
         return new ValidEmail();
     }
 
     protected boolean escaped() {
-        TokenInterface previous = this.lexer.getPrevious();
+        Token<Integer, String> previous = this.lexer.getPrevious();
 
-        return previous.equals(Tokens.BACKSLASH) && !this.lexer.getCurrent().getName().equals(Tokens.GENERIC);
+        return previous.isA(LexerConstant.S_BACKSLASH)
+                && !this.lexer.current.isA(LexerConstant.GENERIC);
     }
 }
