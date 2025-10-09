@@ -1,7 +1,9 @@
 package com.xtmd.emailvalidator.warning;
 
 public class DeprecatedComment extends Warning {
-    DeprecatedComment() {
-        super(37, "Deprecated comments", 0);
+    public static final int CODE = 37;
+
+    public DeprecatedComment() {
+        this.message = "Deprecated comments";
     }
 }

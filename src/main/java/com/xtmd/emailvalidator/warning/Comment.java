@@ -1,7 +1,9 @@
 package com.xtmd.emailvalidator.warning;
 
 public class Comment extends Warning {
-    Comment() {
-        super(17, "Comments found in this email", 0);
+    public static final int CODE = 12;
+
+    public Comment() {
+        this.message = "Address literal in domain part";
     }
 }

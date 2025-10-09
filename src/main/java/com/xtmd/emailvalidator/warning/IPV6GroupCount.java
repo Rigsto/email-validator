@@ -1,7 +1,10 @@
 package com.xtmd.emailvalidator.warning;
 
 public class IPV6GroupCount extends Warning {
-    IPV6GroupCount() {
-        super(72, "Group count is not IPV6 valid", 5322);
+    public static final int CODE = 72;
+
+    public IPV6GroupCount() {
+        this.message = "Group count is not IPV6 valid";
+        this.rfcNumber = 5322;
     }
 }

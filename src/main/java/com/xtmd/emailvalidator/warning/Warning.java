@@ -1,45 +1,29 @@
 package com.xtmd.emailvalidator.warning;
 
-public class Warning extends Exception {
-    private int code;
-    private String message;
-    private int rfcNumber;
+public abstract class Warning {
+    public static final int CODE = 0;
 
-    public Warning() {
-        this.code = 0;
-        this.message = "";
-        this.rfcNumber = 0;
-    }
+    protected String message = "";
+    protected int rfcNumber = 0;
 
-    public Warning(int code, String message, int rfcNumber) {
-        super(message);
-        this.code = code;
-        this.message = message;
-        this.rfcNumber = rfcNumber;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    @Override
-    public String getMessage() {
+    public String message() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public int code() {
+        try {
+            return (int) this.getClass().getField("CODE").get(null);
+        } catch (Exception e) {
+            return CODE;
+        }
     }
 
-    public int getRfcNumber() {
+    public int rfcNumber() {
         return rfcNumber;
     }
 
-    public void setRfcNumber(int rfcNumber) {
-        this.rfcNumber = rfcNumber;
+    @Override
+    public String toString() {
+        return message() + " rfc: " + rfcNumber + " internal code: " + code();
     }
 }

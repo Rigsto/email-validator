@@ -1,30 +1,31 @@
 package com.xtmd.emailvalidator.lexer;
 
-final public class Token implements TokenInterface {
-    private String name;
-    private String text;
+import java.util.Objects;
 
-    public Token(String name, String text) {
-        this.name = name;
-        this.text = text;
+public final class Token<T, V> {
+    public final V value;
+    public final T type;
+    public final int position;
+
+    public Token(V value, T type, int position) {
+        this.value = value;
+        this.type = type;
+        this.position = position;
+    }
+
+    @SafeVarargs
+    public final boolean isA(T... types) {
+        if (types == null) return false;
+
+        for (T type : types) {
+            if (Objects.equals(this.type, type)) return true;
+        }
+
+        return false;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof TokenInterface)) return false;
-        TokenInterface token = (TokenInterface) obj;
-
-        return this.name.equals(token.getName());
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public String getText() {
-        return this.text;
+    public String toString() {
+        return "Token{value=" + value + ", type=" + type + ", position=" + position + '}';
     }
 }

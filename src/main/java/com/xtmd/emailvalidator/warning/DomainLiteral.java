@@ -1,7 +1,10 @@
 package com.xtmd.emailvalidator.warning;
 
 public class DomainLiteral extends Warning {
-    DomainLiteral() {
-        super(70, "Domain Literal", 5322);
+    public static final int CODE = 70;
+
+    public DomainLiteral() {
+        this.message = "Domain Literal";
+        this.rfcNumber = 5322;
     }
 }

@@ -1,19 +1,18 @@
 package com.xtmd.emailvalidator.warning;
 
 public class QuotedPart extends Warning {
-    QuotedPart(Enum<?> prevToken, Enum<?> nextToken) {
-        String prevName = "";
-        String nextName = "";
+    public static final int CODE = 36;
 
-        if (prevToken != null) {
-            prevName = prevToken.name();
-        }
+    public QuotedPart(Object prevToken, Object nextToken) {
+        String prev = tokenToString(prevToken);
+        String next = tokenToString(nextToken);
 
-        if (nextToken != null) {
-            nextName = nextToken.name();
-        }
+        this.message = "Deprecated Quoted String found between " + prev + " and " + next;
+    }
 
-        setCode(36);
-        setMessage("Deprecated Quoted String found between " + prevName + " and " + nextName);
+    private String tokenToString(Object token) {
+        if (token == null) return "null";
+        if (token instanceof Enum<?>) return ((Enum<?>) token).name();
+        return token.toString();
     }
 }

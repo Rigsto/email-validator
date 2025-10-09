@@ -1,7 +1,10 @@
 package com.xtmd.emailvalidator.warning;
 
 public class AddressLiteral extends Warning {
-    AddressLiteral() {
-        super(12, "Address literal in domain part", 5321);
+    public static final int CODE = 12;
+
+    public AddressLiteral() {
+        this.message = "Address literal in domain part";
+        this.rfcNumber = 5321;
     }
 }

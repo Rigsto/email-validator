@@ -1,7 +1,10 @@
 package com.xtmd.emailvalidator.warning;
 
 public class IPV6ColonEnd extends Warning {
-    IPV6ColonEnd() {
-        super(77, ":: found at the end of the domain literal", 5322);
+    public static final int CODE = 77;
+
+    public IPV6ColonEnd() {
+        this.message = ":: found at the end of the domain literal";
+        this.rfcNumber = 5322;
     }
 }

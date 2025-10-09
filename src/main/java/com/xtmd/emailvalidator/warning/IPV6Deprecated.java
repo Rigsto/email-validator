@@ -1,7 +1,10 @@
 package com.xtmd.emailvalidator.warning;
 
 public class IPV6Deprecated extends Warning {
-    IPV6Deprecated() {
-        super(13, "Deprecated form of IPV6", 5321);
+    public static final int CODE = 13;
+
+    public IPV6Deprecated() {
+        this.message = "Deprecated form of IPV6";
+        this.rfcNumber = 5321;
     }
 }

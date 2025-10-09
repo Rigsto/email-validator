@@ -1,7 +1,10 @@
 package com.xtmd.emailvalidator.warning;
 
 public class IPV6ColonStart extends Warning {
-    IPV6ColonStart() {
-        super(76, ":: found at the start of the domain literal", 5322);
+    public static final int CODE = 76;
+
+    public IPV6ColonStart() {
+        this.message = ":: found at the start of the domain literal";
+        this.rfcNumber = 5322;
     }
 }

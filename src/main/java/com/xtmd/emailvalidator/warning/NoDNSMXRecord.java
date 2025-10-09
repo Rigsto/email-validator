@@ -1,7 +1,10 @@
 package com.xtmd.emailvalidator.warning;
 
 public class NoDNSMXRecord extends Warning {
-    NoDNSMXRecord() {
-        super(6, "No MX DNS record was found for this email", 5321);
+    public static final int CODE = 6;
+
+    public NoDNSMXRecord() {
+        this.message = "No MX DNS record was found for this email";
+        this.rfcNumber = 5321;
     }
 }
