@@ -9,11 +9,11 @@ import com.xtmd.emailvalidator.result.ValidEmail;
 import com.xtmd.emailvalidator.result.reason.ConsecutiveDot;
 import com.xtmd.emailvalidator.warning.Warning;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 abstract class PartParser {
-    protected List<Warning> warnings = new ArrayList<>();
+    protected Set<Warning> warnings = new HashSet<>();
     protected EmailLexer lexer;
 
     public PartParser(EmailLexer lexer) {
@@ -22,7 +22,7 @@ abstract class PartParser {
 
     abstract public Result parse();
 
-    public List<Warning> getWarnings() {
+    public Set<Warning> getWarnings() {
         return this.warnings;
     }
 
