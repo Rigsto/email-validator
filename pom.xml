@@ -15,4 +15,12 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>77.1</version>
+        </dependency>
+    </dependencies>
 </project>
