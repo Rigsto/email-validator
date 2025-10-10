@@ -64,8 +64,8 @@ public class DNSCheckValidation implements EmailValidation {
     }
 
     @Override
-    public Set<Warning> getWarnings() {
-        return this.warnings;
+    public List<Warning> getWarnings() {
+        return new ArrayList<>(this.warnings);
     }
 
     protected boolean checkDns(String host) {

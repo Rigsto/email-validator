@@ -7,7 +7,9 @@ import com.xtmd.emailvalidator.result.Result;
 import com.xtmd.emailvalidator.result.reason.ExceptionFound;
 import com.xtmd.emailvalidator.warning.Warning;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MessageIDValidation implements EmailValidation {
@@ -35,8 +37,8 @@ public class MessageIDValidation implements EmailValidation {
     }
 
     @Override
-    public Set<Warning> getWarnings() {
-        return this.warnings;
+    public List<Warning> getWarnings() {
+        return new ArrayList<>(this.warnings);
     }
 
     @Override

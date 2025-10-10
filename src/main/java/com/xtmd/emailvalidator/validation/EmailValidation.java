@@ -4,10 +4,10 @@ import com.xtmd.emailvalidator.EmailLexer;
 import com.xtmd.emailvalidator.result.InvalidEmail;
 import com.xtmd.emailvalidator.warning.Warning;
 
-import java.util.Set;
+import java.util.List;
 
 public interface EmailValidation {
     boolean isValid(String email, EmailLexer emailLexer);
     InvalidEmail getError();
-    Set<Warning> getWarnings();
+    List<Warning> getWarnings();
 }
