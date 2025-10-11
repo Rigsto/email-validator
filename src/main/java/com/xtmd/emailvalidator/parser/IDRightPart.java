@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static com.xtmd.emailvalidator.constant.LexerConstant.*;
 
-public class IDRightPart extends LocalPart {
+public class IDRightPart extends DomainPart {
 
     public IDRightPart(EmailLexer lexer) {
         super(lexer);

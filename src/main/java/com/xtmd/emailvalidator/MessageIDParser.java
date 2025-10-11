@@ -58,7 +58,7 @@ public class MessageIDParser extends Parser {
         IDRightPart rightParser = new IDRightPart(this.lexer);
         Result result = rightParser.parse();
 
-        this.idRight = rightParser.localPart();
+        this.idRight = rightParser.domainPart();
         this.warnings.addAll(rightParser.getWarnings());
 
         return result;

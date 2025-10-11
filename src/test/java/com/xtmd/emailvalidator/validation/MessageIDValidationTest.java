@@ -1,7 +1,6 @@
 package com.xtmd.emailvalidator.validation;
 
 import com.xtmd.emailvalidator.EmailLexer;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -19,7 +18,6 @@ public class MessageIDValidationTest {
         assertTrue(validator.isValid(messageID, new EmailLexer()), "Should be valid: " + messageID);
     }
 
-    @Disabled
     @ParameterizedTest
     @MethodSource("invalidMessageIDs")
     void testInvalidMessageID(String messageID) {
