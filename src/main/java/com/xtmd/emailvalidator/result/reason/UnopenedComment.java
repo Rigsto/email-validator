@@ -1,6 +1,6 @@
 package com.xtmd.emailvalidator.result.reason;
 
-public class UnOpenedComment implements Reason {
+public class UnopenedComment implements Reason {
 
     @Override
     public int code() {

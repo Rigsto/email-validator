@@ -4,7 +4,7 @@ import com.xtmd.emailvalidator.EmailLexer;
 import com.xtmd.emailvalidator.parser.strategy.CommentStrategy;
 import com.xtmd.emailvalidator.result.InvalidEmail;
 import com.xtmd.emailvalidator.result.Result;
-import com.xtmd.emailvalidator.result.reason.UnOpenedComment;
+import com.xtmd.emailvalidator.result.reason.UnopenedComment;
 import com.xtmd.emailvalidator.result.reason.UnclosedComment;
 import com.xtmd.emailvalidator.warning.QuotedPart;
 
@@ -32,7 +32,7 @@ public class Comment extends PartParser {
         }
 
         if (this.lexer.current.isA(S_CLOSEPARENTHESIS)) {
-            return new InvalidEmail(new UnOpenedComment(), this.lexer.current.value);
+            return new InvalidEmail(new UnopenedComment(), this.lexer.current.value);
         }
 
         this.warnings.add(new com.xtmd.emailvalidator.warning.Comment());
@@ -51,11 +51,11 @@ public class Comment extends PartParser {
         }
 
         if (this.openedParenthesis >= 1) {
-            return new InvalidEmail(new UnOpenedComment(), this.lexer.current.value);
+            return new InvalidEmail(new UnopenedComment(), this.lexer.current.value);
         }
 
         if (this.openedParenthesis < 0) {
-            return new InvalidEmail(new UnOpenedComment(), this.lexer.current.value);
+            return new InvalidEmail(new UnopenedComment(), this.lexer.current.value);
         }
 
         Result finalValidations = this.commentStrategy.endOfLoopValidations(this.lexer);

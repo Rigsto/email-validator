@@ -59,18 +59,14 @@ public class EmailLexer extends AbstractLexer<Integer, String> {
     }
 
     public boolean find(int type) {
-        resetPeek();
-        Token<Integer, String> token;
+        EmailLexer lexer = new EmailLexer();
+        lexer.skipUntil(type);
 
-        while ((token = peek()) != null) {
-            if (token.isA(type)) {
-                resetPeek();
-                return true;
-            }
+        if (lexer.lookahead != null) {
+            throw new NoSuchElementException(type + " not found");
         }
 
-        resetPeek();
-        throw new NoSuchElementException(type + " not found");
+        return true;
     }
 
     @Override
@@ -145,7 +141,7 @@ public class EmailLexer extends AbstractLexer<Integer, String> {
         return !INVALID_CHARS_PATTERN.matcher(value).find();
     }
 
-    protected boolean isUTF7Invalid(String value) {
+    protected boolean isUTF8Invalid(String value) {
         return VALID_UTF8_PATTERN.matcher(value).find();
     }
 

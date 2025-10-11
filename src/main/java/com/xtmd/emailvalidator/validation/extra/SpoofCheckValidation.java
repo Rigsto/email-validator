@@ -7,8 +7,8 @@ import com.xtmd.emailvalidator.result.SpoofEmail;
 import com.xtmd.emailvalidator.validation.EmailValidation;
 import com.xtmd.emailvalidator.warning.Warning;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpoofCheckValidation implements EmailValidation {
     private InvalidEmail error;
@@ -16,9 +16,6 @@ public class SpoofCheckValidation implements EmailValidation {
     @Override
     public boolean isValid(String email, EmailLexer emailLexer) {
         SpoofChecker.Builder builder = new SpoofChecker.Builder();
-        builder.setAllowedChars(SpoofChecker.RECOMMENDED);
-        builder.setChecks(~SpoofChecker.CONFUSABLE);
-
         SpoofChecker spoofChecker = builder.build();
 
         if (spoofChecker.failsChecks(email)) {
@@ -34,7 +31,7 @@ public class SpoofCheckValidation implements EmailValidation {
     }
 
     @Override
-    public Set<Warning> getWarnings() {
-        return new HashSet<>();
+    public List<Warning> getWarnings() {
+        return new ArrayList<>();
     }
 }

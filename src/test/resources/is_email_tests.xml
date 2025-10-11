@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests>
+    <!-- No @ -->
+    <test><address value="no-at-symbol.example.com"/></test>
+
+    <!-- Empty local part -->
+    <test><address value="@example.com"/></test>
+
+    <!-- Dot at start of local -->
+    <test><address value=".startdot@example.com"/></test>
+
+    <!-- Dot at end of local -->
+    <test><address value="enddot.@example.com"/></test>
+
+    <!-- Double dots in local -->
+    <test><address value="dot..dot@example.com"/></test>
+
+    <!-- Leading hyphen in domain label -->
+    <test><address value="user@-badprefix.com"/></test>
+
+    <!-- Trailing hyphen in domain label -->
+    <test><address value="user@domain-with-hyphen-.com"/></test>
+
+    <!-- Double dots in domain -->
+    <test><address value="user@domain..double"/></test>
+
+    <!-- Trailing dot in domain -->
+    <test><address value="user@domain."/></test>
+
+    <!-- Space in local -->
+    <test><address value="first last@example.com"/></test>
+
+    <!-- Illegal backslash (not a quoted string) -->
+    <test><address value="bad\slash@example.com"/></test>
+
+    <!-- Bad quoted string escaping -->
+    <test><address value="&quot;bad\\escape@example.com"/></test>
+
+    <!-- IPv6 literal with bad hex -->
+    <test><address value="user@[IPv6:2001:db8:zzzz::1]"/></test>
+
+    <!-- IPv6 literal with multiple :: -->
+    <test><address value="user@[IPv6:::1]"/></test>
+
+    <!-- Bracket opened but not closed -->
+    <test><address value="user@[127.0.0.1"/></test>
+
+    <!-- Reserved / local-only domains -->
+    <test><address value="user@test"/></test>
+    <test><address value="user@example"/></test>
+    <test><address value="user@invalid"/></test>
+    <test><address value="user@localhost"/></test>
+    <test><address value="user@local"/></test>
+    <test><address value="user@intranet"/></test>
+    <test><address value="user@internal"/></test>
+    <test><address value="user@private"/></test>
+    <test><address value="user@corp"/></test>
+    <test><address value="user@home"/></test>
+    <test><address value="user@lan"/></test>
+
+    <!-- Non-existent subdomain path often used in tests -->
+    <test><address value="example@invalid.example.com"/></test>
+
+    <!-- “Null MX” case domain (expected: accepts no mail) -->
+    <test><address value="nullmx@example.com"/></test>
+
+    <!-- Mixed Unicode script spoof-ish local (should fail spoof/DNS in your suite setup) -->
+    <test><address value="Кириллицаlatin漢字ひらがなカタカナ"/></test>
+
+    <!-- Unicode in domain with reserved TLD -->
+    <test><address value="user@例え.テスト"/></test>
+</tests>

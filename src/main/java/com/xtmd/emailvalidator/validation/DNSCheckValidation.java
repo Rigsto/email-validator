@@ -69,7 +69,14 @@ public class DNSCheckValidation implements EmailValidation {
     }
 
     protected boolean checkDns(String host) {
-        String ascii = IDN.toASCII(host, IDN.USE_STD3_ASCII_RULES);
+        String ascii = "";
+
+        try {
+            ascii = IDN.toASCII(host, IDN.USE_STD3_ASCII_RULES);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+
         ascii = ascii.replaceAll("\\.$", "");
 
         Deque<String> parts = new ArrayDeque<>(Arrays.asList(ascii.split("\\.")));

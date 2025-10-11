@@ -26,4 +26,18 @@ public abstract class Warning {
     public String toString() {
         return message() + " rfc: " + rfcNumber + " internal code: " + code();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj instanceof Warning warning) {
+            return warning.code() == this.code();
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.code();
+    }
 }
