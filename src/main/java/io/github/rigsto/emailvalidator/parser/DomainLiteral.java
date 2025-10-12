@@ -8,7 +8,6 @@ import io.github.rigsto.emailvalidator.result.ValidEmail;
 import io.github.rigsto.emailvalidator.result.reason.CRNoLF;
 import io.github.rigsto.emailvalidator.result.reason.ExpectingDTEXT;
 import io.github.rigsto.emailvalidator.result.reason.UnusualElements;
-import com.xtmd.emailvalidator.warning.*;
 import io.github.rigsto.emailvalidator.warning.*;
 
 import java.util.Arrays;

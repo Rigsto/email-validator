@@ -6,7 +6,6 @@ import io.github.rigsto.emailvalidator.parser.strategy.DomainComment;
 import io.github.rigsto.emailvalidator.result.InvalidEmail;
 import io.github.rigsto.emailvalidator.result.Result;
 import io.github.rigsto.emailvalidator.result.ValidEmail;
-import com.xtmd.emailvalidator.result.reason.*;
 import io.github.rigsto.emailvalidator.result.reason.*;
 import io.github.rigsto.emailvalidator.warning.DeprecatedComment;
 import io.github.rigsto.emailvalidator.warning.TLD;

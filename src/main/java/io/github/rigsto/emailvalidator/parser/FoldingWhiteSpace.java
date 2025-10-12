@@ -5,7 +5,6 @@ import io.github.rigsto.emailvalidator.lexer.Token;
 import io.github.rigsto.emailvalidator.result.InvalidEmail;
 import io.github.rigsto.emailvalidator.result.Result;
 import io.github.rigsto.emailvalidator.result.ValidEmail;
-import com.xtmd.emailvalidator.result.reason.*;
 import io.github.rigsto.emailvalidator.result.reason.*;
 import io.github.rigsto.emailvalidator.warning.CFWSNearAt;
 import io.github.rigsto.emailvalidator.warning.CFWSWithFWS;

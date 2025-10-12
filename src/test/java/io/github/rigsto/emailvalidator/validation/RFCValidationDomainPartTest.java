@@ -2,8 +2,6 @@ package io.github.rigsto.emailvalidator.validation;
 
 import io.github.rigsto.emailvalidator.EmailLexer;
 import io.github.rigsto.emailvalidator.result.InvalidEmail;
-import com.xtmd.emailvalidator.result.reason.*;
-import com.xtmd.emailvalidator.warning.*;
 import io.github.rigsto.emailvalidator.result.reason.*;
 import io.github.rigsto.emailvalidator.warning.*;
 import org.junit.jupiter.api.AfterEach;
