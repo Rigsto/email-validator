@@ -17,18 +17,50 @@ import java.util.regex.Pattern;
 
 import static io.github.rigsto.emailvalidator.constant.LexerConstant.*;
 
+/**
+ * Parser for domain literals in email addresses.
+ * <p>
+ * Domain literals are enclosed in square brackets and can contain
+ * IPv4 addresses, IPv6 addresses, or other address formats. This parser
+ * validates the syntax and structure of domain literals according to
+ * RFC standards.
+ * </p>
+ * 
+ * @author EmailValidator Team
+ * @since 0.0.1
+ */
 public class DomainLiteral extends PartParser {
+    /**
+     * Regular expression pattern for validating IPv4 addresses.
+     */
     public static final Pattern IPV4_REGEX = Pattern.compile(
             "\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
                     + "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
     );
 
+    /**
+     * List of token types that generate obsolete warnings in domain literals.
+     */
     public static final List<Integer> OBSOLETE_WARNINGS = Arrays.asList(INVALID, C_DEL, S_LF, S_BACKSLASH);
 
+    /**
+     * Creates a new DomainLiteral parser with the specified lexer.
+     * 
+     * @param lexer the lexer to use for tokenization
+     */
     public DomainLiteral(EmailLexer lexer) {
         super(lexer);
     }
 
+    /**
+     * Parses a domain literal enclosed in square brackets.
+     * <p>
+     * Validates the syntax of domain literals, checks for IPv4/IPv6 addresses,
+     * and generates appropriate warnings for deprecated or unusual elements.
+     * </p>
+     * 
+     * @return ValidEmail if the domain literal is valid, InvalidEmail otherwise
+     */
     @Override
     public Result parse() {
         addTagWarnings();
@@ -91,6 +123,16 @@ public class DomainLiteral extends PartParser {
         return new ValidEmail();
     }
 
+    /**
+     * Converts IPv4 addresses to IPv6 format within domain literals.
+     * <p>
+     * This method handles the conversion of IPv4 addresses to IPv6 format
+     * as specified in RFC standards for domain literals.
+     * </p>
+     * 
+     * @param addressLiteralIPv4 the IPv4 address literal to convert
+     * @return the converted IPv6 format address literal
+     */
     public String convertIPv4ToIPv6(String addressLiteralIPv4) {
         Matcher matcher = IPV4_REGEX.matcher(addressLiteralIPv4);
 
@@ -106,6 +148,16 @@ public class DomainLiteral extends PartParser {
         return addressLiteralIPv4;
     }
 
+    /**
+     * Validates IPv6 address format and generates appropriate warnings.
+     * <p>
+     * Checks IPv6 address syntax, group counts, double colons, and other
+     * IPv6-specific validation rules.
+     * </p>
+     * 
+     * @param addressLiteral the IPv6 address literal to validate
+     * @param maxGroups the maximum number of groups allowed
+     */
     public void checkIPv6Tag(String addressLiteral, int maxGroups) {
         Token<Integer, String> prev = this.lexer.getPrevious();
         if (prev.isA(S_COLON)) {

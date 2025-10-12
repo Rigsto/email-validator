@@ -14,14 +14,42 @@ import java.util.List;
 
 import static io.github.rigsto.emailvalidator.constant.LexerConstant.*;
 
+/**
+ * Parser for folding whitespace (FWS) in email addresses.
+ * <p>
+ * Folding whitespace consists of whitespace characters that can be used
+ * for line folding in email addresses according to RFC standards. This parser
+ * validates FWS syntax and generates appropriate warnings for deprecated usage.
+ * </p>
+ * 
+ * @author EmailValidator Team
+ * @since 0.0.1
+ */
 public class FoldingWhiteSpace extends PartParser {
 
+    /**
+     * List of token types that constitute folding whitespace.
+     */
     public static final List<Integer> FWS_TYPES = Arrays.asList(S_SP, S_HTAB, S_CR, S_LF, CRLF);
 
+    /**
+     * Creates a new FoldingWhiteSpace parser with the specified lexer.
+     * 
+     * @param lexer the lexer to use for tokenization
+     */
     public FoldingWhiteSpace(EmailLexer lexer) {
         super(lexer);
     }
 
+    /**
+     * Parses folding whitespace in the input.
+     * <p>
+     * Validates FWS syntax, checks for CRLF sequences, and generates
+     * appropriate warnings for deprecated usage patterns.
+     * </p>
+     * 
+     * @return ValidEmail if FWS is valid, InvalidEmail otherwise
+     */
     @Override
     public Result parse() {
         if (!this.isFWS()) {
@@ -56,6 +84,15 @@ public class FoldingWhiteSpace extends PartParser {
         return new ValidEmail();
     }
 
+    /**
+     * Checks for valid CRLF sequences in folding whitespace.
+     * <p>
+     * CRLF sequences in FWS must be followed by whitespace characters
+     * according to RFC standards.
+     * </p>
+     * 
+     * @return ValidEmail if CRLF is valid, InvalidEmail otherwise
+     */
     protected Result checkCRLFInFWS() {
         if (!this.lexer.current.isA(CRLF)) {
             return new ValidEmail();
@@ -72,6 +109,11 @@ public class FoldingWhiteSpace extends PartParser {
         return new ValidEmail();
     }
 
+    /**
+     * Checks if the current token represents folding whitespace.
+     * 
+     * @return true if the current token is FWS, false otherwise
+     */
     protected boolean isFWS() {
         if (this.escaped()) {
             return false;

@@ -12,8 +12,23 @@ import io.github.rigsto.emailvalidator.warning.Warning;
 import java.net.IDN;
 import java.util.*;
 
+/**
+ * Validation strategy for DNS-based email validation.
+ * <p>
+ * This validation performs DNS lookups to verify that the domain part of
+ * an email address has valid DNS records (A, AAAA, MX). It checks for
+ * reserved domains, local domains, and validates MX records according to
+ * RFC standards.
+ * </p>
+ * 
+ * @author EmailValidator Team
+ * @since 0.0.1
+ */
 public class DNSCheckValidation implements EmailValidation {
 
+    /**
+     * List of reserved DNS top-level domain names that should be rejected.
+     */
     public static final List<String> RESERVED_DNS_TOP_LEVEL_NAMES = List.of(
             // Reserved TLDs
             "test", "example", "invalid", "localhost",
@@ -23,15 +38,38 @@ public class DNSCheckValidation implements EmailValidation {
             "intranet", "internal", "private", "corp", "home", "lan"
     );
 
+    /**
+     * Set of warnings collected during DNS validation.
+     */
     private final Set<Warning> warnings = new HashSet<>();
+    
+    /**
+     * The error from the last validation, if any.
+     */
     private InvalidEmail error = null;
+    
+    /**
+     * List of MX records found during validation.
+     */
     private final List<Map<String, Object>> mxRecords = new ArrayList<>();
+    
+    /**
+     * The DNS record wrapper for performing DNS lookups.
+     */
     private final DNSGetRecordWrapper wrapper;
 
+    /**
+     * Creates a new DNSCheckValidation with the specified DNS wrapper.
+     * 
+     * @param dnsGetRecordWrapper the DNS wrapper to use for lookups
+     */
     public DNSCheckValidation(DNSGetRecordWrapper dnsGetRecordWrapper) {
         this.wrapper = (dnsGetRecordWrapper != null) ? dnsGetRecordWrapper : new DNSGetRecordWrapper();
     }
 
+    /**
+     * Creates a new DNSCheckValidation with a default DNS wrapper.
+     */
     public DNSCheckValidation() {
         this(null);
     }

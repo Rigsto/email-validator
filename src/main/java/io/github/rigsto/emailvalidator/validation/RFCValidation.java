@@ -12,11 +12,40 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Validation strategy for RFC-compliant email address validation.
+ * <p>
+ * This validation performs basic RFC compliance checking using the EmailParser
+ * to validate email syntax according to RFC standards. It collects warnings
+ * and errors from the parsing process.
+ * </p>
+ * 
+ * @author EmailValidator Team
+ * @since 0.0.1
+ */
 public class RFCValidation implements EmailValidation {
 
+    /**
+     * Set of warnings collected during validation.
+     */
     private Set<Warning> warnings = new HashSet<>();
+    
+    /**
+     * The error from the last validation, if any.
+     */
     private InvalidEmail error = null;
 
+    /**
+     * Validates an email address for RFC compliance.
+     * <p>
+     * Uses the EmailParser to perform syntax validation according to
+     * RFC standards and collects any warnings or errors generated.
+     * </p>
+     * 
+     * @param email the email address to validate
+     * @param emailLexer the lexer to use for tokenization
+     * @return true if the email is RFC-compliant, false otherwise
+     */
     @Override
     public boolean isValid(String email, EmailLexer emailLexer) {
         EmailParser parser = new EmailParser(emailLexer);
@@ -38,11 +67,21 @@ public class RFCValidation implements EmailValidation {
         return true;
     }
 
+    /**
+     * Returns the error from the last validation, if any.
+     * 
+     * @return the InvalidEmail error, or null if no error occurred
+     */
     @Override
     public InvalidEmail getError() {
         return this.error;
     }
 
+    /**
+     * Returns the warnings generated during the last validation.
+     * 
+     * @return a list of warnings
+     */
     @Override
     public List<Warning> getWarnings() {
         return new ArrayList<>(this.warnings);

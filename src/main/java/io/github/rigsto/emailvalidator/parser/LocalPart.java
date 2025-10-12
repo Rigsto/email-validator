@@ -17,8 +17,22 @@ import java.util.Map;
 
 import static io.github.rigsto.emailvalidator.constant.LexerConstant.*;
 
+/**
+ * Parser for the local part of email addresses.
+ * <p>
+ * The local part is the portion of an email address before the @ symbol.
+ * This parser validates local part syntax, handles quoted strings, comments,
+ * and ensures compliance with RFC standards for local parts.
+ * </p>
+ * 
+ * @author EmailValidator Team
+ * @since 0.0.1
+ */
 public class LocalPart extends PartParser {
 
+    /**
+     * Map of token types that are invalid in local parts.
+     */
     public static Map<Integer, Integer> INVALID_TOKENS = new HashMap<>(Map.ofEntries(
             Map.entry(S_COMMA, S_COMMA),
             Map.entry(S_CLOSEBRACKET, S_CLOSEBRACKET),
@@ -30,12 +44,29 @@ public class LocalPart extends PartParser {
             Map.entry(INVALID, INVALID)
     ));
 
+    /**
+     * The parsed local part string.
+     */
     private String localPart = "";
 
+    /**
+     * Creates a new LocalPart parser with the specified lexer.
+     * 
+     * @param lexer the lexer to use for tokenization
+     */
     public LocalPart(EmailLexer lexer) {
         super(lexer);
     }
 
+    /**
+     * Parses the local part of an email address.
+     * <p>
+     * Validates local part syntax, handles quoted strings, comments,
+     * and ensures compliance with RFC standards for local parts.
+     * </p>
+     * 
+     * @return ValidEmail if the local part is valid, InvalidEmail otherwise
+     */
     @Override
     public Result parse() {
         this.lexer.clearRecorded();
@@ -104,6 +135,11 @@ public class LocalPart extends PartParser {
         return new ValidEmail();
     }
 
+    /**
+     * Returns the parsed local part string.
+     * 
+     * @return the local part string
+     */
     public String localPart() {
         return this.localPart;
     }

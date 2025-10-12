@@ -16,17 +16,56 @@ import java.util.Map;
 
 import static io.github.rigsto.emailvalidator.constant.LexerConstant.*;
 
+/**
+ * Parser for the domain part of email addresses.
+ * <p>
+ * This parser handles the validation of domain parts in email addresses,
+ * including domain names, domain literals, and various domain-related
+ * syntax rules according to RFC standards.
+ * </p>
+ * 
+ * @author EmailValidator Team
+ * @since 0.0.1
+ */
 public class DomainPart extends PartParser {
+    /**
+     * Maximum allowed length for domain names (253 characters).
+     */
     public static int DOMAIN_MAX_LENGTH = 253;
+    
+    /**
+     * Maximum allowed length for domain labels (63 characters).
+     */
     public static int LABEL_MAX_LENGTH = 63;
 
+    /**
+     * The parsed domain part string.
+     */
     private String domainPart = "";
+    
+    /**
+     * The current domain label being processed.
+     */
     private String label = "";
 
+    /**
+     * Creates a new DomainPart parser with the specified lexer.
+     * 
+     * @param lexer the lexer to use for tokenization
+     */
     public DomainPart(EmailLexer lexer) {
         super(lexer);
     }
 
+    /**
+     * Parses the domain part of an email address.
+     * <p>
+     * Validates domain syntax, checks for domain literals, handles comments,
+     * and ensures compliance with RFC standards for domain parts.
+     * </p>
+     * 
+     * @return ValidEmail if the domain part is valid, InvalidEmail otherwise
+     */
     @Override
     public Result parse() {
         this.lexer.clearRecorded();
@@ -296,6 +335,11 @@ public class DomainPart extends PartParser {
         }
     }
 
+    /**
+     * Returns the parsed domain part string.
+     * 
+     * @return the domain part string
+     */
     public String domainPart() {
         return this.domainPart;
     }

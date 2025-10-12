@@ -15,12 +15,37 @@ import java.util.Map;
 
 import static io.github.rigsto.emailvalidator.constant.LexerConstant.*;
 
+/**
+ * Parser for quoted strings in email addresses.
+ * <p>
+ * Quoted strings are enclosed in double quotes and can contain various
+ * characters that would otherwise be invalid. This parser validates
+ * quoted string syntax and handles escaping within quoted strings.
+ * </p>
+ * 
+ * @author EmailValidator Team
+ * @since 0.0.1
+ */
 public class DoubleQuote extends PartParser {
 
+    /**
+     * Creates a new DoubleQuote parser with the specified lexer.
+     * 
+     * @param lexer the lexer to use for tokenization
+     */
     public DoubleQuote(EmailLexer lexer) {
         super(lexer);
     }
 
+    /**
+     * Parses a quoted string in an email address.
+     * <p>
+     * Validates quoted string syntax, handles escaping, and ensures
+     * proper closing of quoted strings according to RFC standards.
+     * </p>
+     * 
+     * @return ValidEmail if the quoted string is valid, InvalidEmail otherwise
+     */
     @Override
     public Result parse() {
         Result validQuotedString = checkDQuote();

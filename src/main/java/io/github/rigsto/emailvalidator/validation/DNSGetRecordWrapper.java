@@ -6,12 +6,45 @@ import javax.naming.directory.Attributes;
 import javax.naming.directory.InitialDirContext;
 import java.util.*;
 
+/**
+ * Wrapper class for performing DNS record lookups.
+ * <p>
+ * This class provides functionality to query DNS records (A, AAAA, MX)
+ * for domain names using Java's JNDI DNS context. It handles the
+ * conversion of DNS records into a standardized format.
+ * </p>
+ * 
+ * @author EmailValidator Team
+ * @since 0.0.1
+ */
 public class DNSGetRecordWrapper {
 
+    /**
+     * DNS record type constant for A records (IPv4 addresses).
+     */
     public static final int DNS_A = 1;
+    
+    /**
+     * DNS record type constant for AAAA records (IPv6 addresses).
+     */
     public static final int DNS_AAAA = 2;
+    
+    /**
+     * DNS record type constant for MX records (mail exchange).
+     */
     public static final int DNS_MX = 4;
 
+    /**
+     * Retrieves DNS records for the specified host and record types.
+     * <p>
+     * Performs DNS lookups for the specified record types and returns
+     * the results in a standardized format.
+     * </p>
+     * 
+     * @param host the hostname to query
+     * @param type bitwise combination of DNS record type constants
+     * @return DNSRecords containing the query results
+     */
     public DNSRecords getRecords(String host, int type) {
         try {
             List<Map<String, Object>> out = new ArrayList<>();
@@ -87,7 +120,16 @@ public class DNSGetRecordWrapper {
         return out;
     }
 
+    /**
+     * Interface for mapping DNS record objects to standardized maps.
+     */
     private interface Mapper {
+        /**
+         * Maps a DNS record object to a standardized map format.
+         * 
+         * @param record the DNS record object to map
+         * @return a map containing the record data
+         */
         Map<String, Object> map(Object record);
     }
 }
