@@ -130,6 +130,12 @@ public class LocalPart extends PartParser {
         return new ValidEmail();
     }
 
+    /**
+     * Validates tokens in the local part.
+     * 
+     * @param hasComments whether comments are present in the local part
+     * @return ValidEmail if tokens are valid, InvalidEmail otherwise
+     */
     protected Result validateTokens(boolean hasComments) {
         if (INVALID_TOKENS.containsKey(this.lexer.current.type)) {
             return new InvalidEmail(new ExpectingATEXT("Invalid token found"), this.lexer.current.value);
@@ -179,6 +185,11 @@ public class LocalPart extends PartParser {
         return result;
     }
 
+    /**
+     * Parses comments within the local part.
+     * 
+     * @return ValidEmail if comments are valid, InvalidEmail otherwise
+     */
     protected Result parseComments() {
         Comment commentParser = new Comment(this.lexer, new LocalComment());
         Result result = commentParser.parse();

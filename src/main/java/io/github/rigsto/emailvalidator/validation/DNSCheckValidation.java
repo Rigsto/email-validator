@@ -106,6 +106,12 @@ public class DNSCheckValidation implements EmailValidation {
         return new ArrayList<>(this.warnings);
     }
 
+    /**
+     * Checks if the given host has valid DNS records.
+     * 
+     * @param host the hostname to check
+     * @return true if the host has valid DNS records, false otherwise
+     */
     protected boolean checkDns(String host) {
         String ascii = "";
 

@@ -206,6 +206,12 @@ public class DomainLiteral extends PartParser {
         }
     }
 
+    /**
+     * Checks if the given address literal contains a valid IPv4 address.
+     * 
+     * @param addressLiteral the address literal to check
+     * @return true if the address literal contains a valid IPv4 address, false otherwise
+     */
     protected boolean checkIPv4Tag(String addressLiteral) {
         Matcher matcher = IPV4_REGEX.matcher(addressLiteral);
 

@@ -5,7 +5,7 @@
 
     <groupId>io.github.rigsto</groupId>
     <artifactId>emailvalidator</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <inceptionYear>2025</inceptionYear>
 
     <name>emailvalidator</name>

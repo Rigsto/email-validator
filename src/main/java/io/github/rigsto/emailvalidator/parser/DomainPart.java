@@ -162,6 +162,11 @@ public class DomainPart extends PartParser {
         return new ValidEmail();
     }
 
+    /**
+     * Parses comments within the domain part.
+     * 
+     * @return ValidEmail if comments are valid, InvalidEmail otherwise
+     */
     protected Result parseComments() {
         Comment commentParser = new Comment(this.lexer, new DomainComment());
         Result res = commentParser.parse();
@@ -170,6 +175,11 @@ public class DomainPart extends PartParser {
         return res;
     }
 
+    /**
+     * Parses the domain part of an email address.
+     * 
+     * @return ValidEmail if the domain part is valid, InvalidEmail otherwise
+     */
     protected Result doParseDomainPart() {
         boolean tldMissing = true;
         boolean hasComments = false;
@@ -251,6 +261,11 @@ public class DomainPart extends PartParser {
         return new ValidEmail();
     }
 
+    /**
+     * Parses domain literal (IP address in brackets).
+     * 
+     * @return ValidEmail if domain literal is valid, InvalidEmail otherwise
+     */
     protected Result parseDomainLiteral() {
         try {
             this.lexer.find(S_CLOSEBRACKET);
@@ -265,6 +280,13 @@ public class DomainPart extends PartParser {
         return res;
     }
 
+    /**
+     * Checks for domain part specific exceptions and validation rules.
+     * 
+     * @param prev the previous token
+     * @param hasComments whether comments are present in the domain
+     * @return ValidEmail if no exceptions found, InvalidEmail otherwise
+     */
     protected Result checkDomainPartExceptions(Token<Integer, String> prev, boolean hasComments) {
         if (this.lexer.current.isA(S_OPENBRACKET) && prev.type != S_AT) {
             return new InvalidEmail(new ExpectingATEXT("OPENBRACKET not after AT"), this.lexer.current.value);
@@ -281,6 +303,12 @@ public class DomainPart extends PartParser {
         return validateTokens(hasComments);
     }
 
+    /**
+     * Validates tokens in the domain part.
+     * 
+     * @param hasComments whether comments are present in the domain
+     * @return ValidEmail if tokens are valid, InvalidEmail otherwise
+     */
     protected Result validateTokens(boolean hasComments) {
         Map<Integer, Boolean> validDomainTokens = new HashMap<>();
         validDomainTokens.put(GENERIC, true);

@@ -101,6 +101,11 @@ public class DoubleQuote extends PartParser {
         return new ValidEmail();
     }
 
+    /**
+     * Checks double quote validation rules.
+     * 
+     * @return ValidEmail if double quote is valid, InvalidEmail otherwise
+     */
     protected Result checkDQuote() {
         Token<Integer, String> prev = this.lexer.getPrevious();
 
