@@ -101,8 +101,6 @@ public abstract class AbstractLexer<T, V> {
 
     /**
      * Resets the position to a valid range.
-     * 
-     * @param position the position to reset to (will be clamped to 0 or higher)
      */
     public void resetPosition() {
         this.position = Math.max(0, position);
@@ -117,6 +115,15 @@ public abstract class AbstractLexer<T, V> {
     public String getInputUntilPosition(int position) {
         int end = Math.max(0, Math.min(position, input.length()));
         return input.substring(0, end);
+    }
+
+    /**
+     * Returns the input string being tokenized.
+     * 
+     * @return the input string
+     */
+    public String getInput() {
+        return this.input;
     }
 
     /**

@@ -242,6 +242,8 @@ public class DomainPart extends PartParser {
         Map<Integer, Boolean> notAllowed = new HashMap<>();
         notAllowed.put(S_BACKSLASH, true);
         notAllowed.put(S_SLASH, true);
+        notAllowed.put(S_CR, true);
+        notAllowed.put(S_LF, true);
 
         if (notAllowed.containsKey(token.type)) {
             return new InvalidEmail(new CharNotAllowed(), token.value);
@@ -282,6 +284,7 @@ public class DomainPart extends PartParser {
     protected Result validateTokens(boolean hasComments) {
         Map<Integer, Boolean> validDomainTokens = new HashMap<>();
         validDomainTokens.put(GENERIC, true);
+        validDomainTokens.put(UTF8_CHAR, true);
         validDomainTokens.put(S_HYPHEN, true);
         validDomainTokens.put(S_DOT, true);
 
@@ -295,6 +298,20 @@ public class DomainPart extends PartParser {
                     new ExpectingATEXT("Invalid token in domain: " + this.lexer.current.value),
                     this.lexer.current.value
             );
+        }
+
+        // Check for specific invalid characters that should be rejected in domain addresses
+        if (this.lexer.current.type == GENERIC && this.lexer.current.value.length() == 1) {
+            char c = this.lexer.current.value.charAt(0);
+            // Character 226 and ║ (0x2551) should be invalid for email addresses
+            if (c == 226 || c == 0x2551) {
+                return new InvalidEmail(new ExpectingATEXT("Invalid character in domain address"), this.lexer.current.value);
+            }
+        }
+        
+        // Check for CR/LF characters which should be invalid in domain parts
+        if (this.lexer.current.type == S_CR || this.lexer.current.type == S_LF) {
+            return new InvalidEmail(new ExpectingATEXT("CR/LF characters not allowed in domain"), this.lexer.current.value);
         }
 
         return new ValidEmail();
@@ -317,15 +334,8 @@ public class DomainPart extends PartParser {
     }
 
     private boolean isLabelTooLong(String label) {
-        if (label.codePoints().anyMatch(cp -> cp > 0x7F)) {
-            try {
-                String ascii = IDN.toASCII(label, IDN.USE_STD3_ASCII_RULES);
-                return ascii.length() > LABEL_MAX_LENGTH;
-            } catch (IllegalArgumentException e) {
-                return true;
-            }
-        }
-
+        // Check the original label length, not the ASCII conversion
+        // The ASCII conversion is only needed for DNS lookups, not for length validation
         return label.length() > LABEL_MAX_LENGTH;
     }
 

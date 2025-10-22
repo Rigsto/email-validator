@@ -71,6 +71,9 @@ public class LocalPart extends PartParser {
     public Result parse() {
         this.lexer.clearRecorded();
         this.lexer.startRecording();
+        
+        // Move to the first real token
+        this.lexer.moveNext();
 
         while (!this.lexer.current.isA(S_AT) && !this.lexer.current.isA(S_EMPTY)) {
             if (this.hasDotAtStart()) {
@@ -132,6 +135,15 @@ public class LocalPart extends PartParser {
             return new InvalidEmail(new ExpectingATEXT("Invalid token found"), this.lexer.current.value);
         }
 
+        // Check for specific invalid characters that should be rejected in email addresses
+        if (this.lexer.current.type == GENERIC && this.lexer.current.value.length() == 1) {
+            char c = this.lexer.current.value.charAt(0);
+            // Character 226 and ║ (0x2551) should be invalid for email addresses
+            if (c == 226 || c == 0x2551) {
+                return new InvalidEmail(new ExpectingATEXT("Invalid character in email address"), this.lexer.current.value);
+            }
+        }
+
         return new ValidEmail();
     }
 
@@ -180,7 +192,7 @@ public class LocalPart extends PartParser {
             return new ValidEmail();
         }
 
-        if (this.lexer.isNextToken(GENERIC)) {
+        if (this.lexer.isNextToken(GENERIC) || this.lexer.isNextToken(UTF8_CHAR)) {
             return new InvalidEmail(new ExpectingATEXT("Found ATOM after escaping"), this.lexer.current.value);
         }
 

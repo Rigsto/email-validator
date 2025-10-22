@@ -113,10 +113,12 @@ public class LexerConstant {
     // Custom token types
     /** Generic token type for unrecognized characters */
     public static final int GENERIC             = 300;
+    /** UTF-8 character token type */
+    public static final int UTF8_CHAR           = 301;
     /** IPv6 tag token type */
-    public static final int S_IPV6TAG           = 301;
+    public static final int S_IPV6TAG           = 302;
     /** Invalid token type */
-    public static final int INVALID             = 302;
+    public static final int INVALID             = 303;
     /** CRLF sequence token type */
     public static final int CRLF                = 1310;
     /** Double colon token type */

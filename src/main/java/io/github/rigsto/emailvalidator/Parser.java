@@ -104,6 +104,9 @@ abstract class Parser {
             return preParsingResult;
         }
 
+        // Move to the first real token before parsing
+        this.lexer.moveNext();
+
         Result localPartResult = parseLeftFromAt();
         if (localPartResult.isInvalid()) {
             return localPartResult;
@@ -127,18 +130,17 @@ abstract class Parser {
     }
 
     /**
-     * Checks if the current token is an @ symbol.
+     * Checks if the input contains an @ symbol.
      * <p>
-     * Moves the lexer forward by two tokens and checks if the current
-     * token represents the @ symbol.
+     * This method checks if the input string contains an @ symbol
+     * without moving the lexer position.
      * </p>
      * 
-     * @return true if the current token is @, false otherwise
+     * @return true if the input contains @, false otherwise
      */
     protected boolean hasAtToken() {
-        this.lexer.moveNext();
-        this.lexer.moveNext();
-
-        return !this.lexer.current.isA(LexerConstant.S_AT);
+        // Check if the input contains @ symbol without moving lexer
+        String input = this.lexer.getInput();
+        return input != null && input.contains("@");
     }
 }

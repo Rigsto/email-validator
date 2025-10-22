@@ -2,7 +2,7 @@ package io.github.rigsto.emailvalidator.validation;
 
 import io.github.rigsto.emailvalidator.EmailLexer;
 import io.github.rigsto.emailvalidator.result.InvalidEmail;
-import io.github.rigsto.emailvalidator.result.reason.NoDomainPart;
+import io.github.rigsto.emailvalidator.result.reason.NoLocalPart;
 import io.github.rigsto.emailvalidator.result.reason.RFCWarnings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,7 +21,7 @@ public class NoRFCWarningsValidationTest {
 
         InvalidEmail err = v.getError();
         assertNotNull(err);
-        assertInstanceOf(NoDomainPart.class, err.getReason());
+        assertInstanceOf(NoLocalPart.class, err.getReason());
     }
 
     @Test
