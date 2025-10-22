@@ -13,9 +13,9 @@ This library aims to support RFC:
 * [1035](https://tools.ietf.org/html/rfc1035) 
 
 ## Supported Versions
-| Version  | Released | EOL |
-|----------|----------|-----|
-| **v1.x** | -        | -   |
+| Version  | Released    | EOL |
+|----------|-------------|-----|
+| **v1.x** | 21-Oct-2025 | -   |
 
 ## Getting Started
 
